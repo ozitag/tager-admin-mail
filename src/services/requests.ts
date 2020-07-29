@@ -7,9 +7,9 @@ export function getTemplateList(): Promise<ResponseBody<Array<EmailTemplate>>> {
 }
 
 export function getTemplate(
-  alias: string
+  templateId: number | string
 ): Promise<ResponseBody<EmailTemplate>> {
-  return request.get({ path: '/admin/mail/templates', params: { alias } });
+  return request.get({ path: `/admin/mail/templates/${templateId}` });
 }
 
 export type TemplateUpdatePayload = {
