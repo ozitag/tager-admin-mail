@@ -1,6 +1,6 @@
 import { MenuItemType } from '@tager/admin-layout';
 
-import { EMAIL_ROUTE_PATHS } from './paths';
+import { getEmailLogListUrl, getEmailTemplateListUrl } from '../utils/paths';
 
 export const EMAIL_MENU_ITEM: MenuItemType = {
   id: 'mail',
@@ -8,7 +8,7 @@ export const EMAIL_MENU_ITEM: MenuItemType = {
   path: '',
   icon: 'email',
   children: [
-    { name: 'Templates', path: EMAIL_ROUTE_PATHS.TEMPLATE_LIST },
-    { name: 'Logs', path: EMAIL_ROUTE_PATHS.LOG_LIST },
+    { name: 'Templates', path: getEmailTemplateListUrl() },
+    { name: 'Logs', path: getEmailLogListUrl() },
   ],
 };

@@ -1,6 +1,7 @@
 import { Nullable } from '@tager/admin-services';
 
 export type EmailTemplate = {
+  id: number;
   alias: string;
   name: string;
   subject: string;

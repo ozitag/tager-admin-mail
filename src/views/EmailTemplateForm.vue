@@ -65,7 +65,7 @@ import {
   updateTemplate,
 } from '../services/requests';
 import { EmailTemplate } from '../typings/model';
-import { EMAIL_ROUTE_PATHS } from '../constants/paths';
+import { getEmailTemplateListUrl } from '../utils/paths';
 
 type FormValues = { subject: string; body: string; recipients: string };
 
@@ -85,12 +85,12 @@ export default Vue.extend({
       errors: {},
       isSubmitting: false,
       isInitialLoading: false,
-      templateListRoutePath: EMAIL_ROUTE_PATHS.TEMPLATE_LIST,
+      templateListRoutePath: getEmailTemplateListUrl(),
     };
   },
   computed: {
-    templateAlias(): string {
-      return this.$route.params.templateAlias;
+    templateId(): string {
+      return this.$route.params.templateId;
     },
     pageTitle(): string {
       return this.emailTemplate
@@ -101,7 +101,7 @@ export default Vue.extend({
   mounted(): void {
     this.isInitialLoading = true;
 
-    getTemplate(this.templateAlias)
+    getTemplate(this.templateId)
       .then((response) => {
         this.values = this.convertEmailTemplateToFormValues(response.data);
         this.emailTemplate = response.data;
@@ -130,10 +130,10 @@ export default Vue.extend({
           .filter(Boolean),
       };
 
-      updateTemplate(this.templateAlias, body)
+      updateTemplate(this.templateId, body)
         .then(() => {
           this.errors = {};
-          this.$router.push(EMAIL_ROUTE_PATHS.TEMPLATE_LIST);
+          this.$router.push(getEmailTemplateListUrl());
 
           this.$toast({
             variant: 'success',

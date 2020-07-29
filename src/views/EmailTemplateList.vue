@@ -20,7 +20,7 @@
           <base-button
             variant="icon"
             title="Edit"
-            :href="getTemplateUrl(row.alias)"
+            :href="getEmailTemplateFormUrl({ templateId: row.id })"
           >
             <svg-icon name="edit"></svg-icon>
           </base-button>
@@ -32,19 +32,12 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { compile } from 'path-to-regexp';
 import { ColumnDefinition } from '@tager/admin-ui';
 import { Nullable } from '@tager/admin-services';
 
 import { EmailTemplate } from '../typings/model';
 import { getTemplateList } from '../services/requests';
-import { EMAIL_ROUTE_PATHS } from '../constants/paths';
-
-function getTemplateUrl(templateAlias: string): string {
-  return compile(EMAIL_ROUTE_PATHS.TEMPLATE_FORM)({
-    templateAlias,
-  });
-}
+import { getEmailTemplateFormUrl } from '../utils/paths';
 
 const COLUMN_DEFS: Array<ColumnDefinition<EmailTemplate>> = [
   {
@@ -102,7 +95,7 @@ export default Vue.extend({
           this.isRowDataLoading = false;
         });
     },
-    getTemplateUrl,
+    getEmailTemplateFormUrl,
   },
 });
 </script>

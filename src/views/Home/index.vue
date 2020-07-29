@@ -5,8 +5,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { NavigationGridItem } from '@tager/admin-ui';
-
-import { EMAIL_ROUTE_PATHS } from '../../constants/paths';
+import { getEmailLogListUrl, getEmailTemplateListUrl } from '../../utils/paths';
 
 export default Vue.extend({
   name: 'Home',
@@ -17,8 +16,8 @@ export default Vue.extend({
       emailNavItem: {
         name: 'E-Mail',
         linkList: [
-          { href: EMAIL_ROUTE_PATHS.TEMPLATE_LIST, label: 'Templates' },
-          { href: EMAIL_ROUTE_PATHS.LOG_LIST, label: 'Logs' },
+          { href: getEmailTemplateListUrl(), label: 'Templates' },
+          { href: getEmailLogListUrl(), label: 'Logs' },
         ],
       },
     };
