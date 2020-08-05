@@ -56,12 +56,6 @@ const COLUMN_DEFS: Array<ColumnDefinition<EmailLog>> = [
   },
   { id: 7, name: 'Date', field: 'createdAt', type: 'datetime' },
   {
-    id: 8,
-    name: 'Is debug?',
-    field: 'isDebug',
-    format: ({ row }) => formatBoolean(row.isDebug),
-  },
-  {
     id: 9,
     name: 'Error',
     field: 'error',

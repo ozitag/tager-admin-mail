@@ -19,13 +19,12 @@ export type TemplateUpdatePayload = {
 };
 
 export function updateTemplate(
-  alias: string,
+  templateId: string | number,
   payload: TemplateUpdatePayload
 ): Promise<ResponseBody<EmailTemplate>> {
   return request.put({
-    path: '/admin/mail/templates',
+    path: `/admin/mail/templates/${templateId}`,
     body: payload,
-    params: { alias },
   });
 }
 
