@@ -6,7 +6,7 @@ import EmailLogList from '../views/EmailLogList.vue';
 
 import { EMAIL_ROUTE_PATHS } from './paths';
 
-const HOME_BREADCRUMB = { path: '/', label: 'Home' };
+const HOME_BREADCRUMB = { url: '/', text: 'Home' };
 
 export const EMAIL_TEMPLATE_LIST_ROUTE: CustomRouteConfig = {
   path: EMAIL_ROUTE_PATHS.TEMPLATE_LIST,
@@ -15,7 +15,7 @@ export const EMAIL_TEMPLATE_LIST_ROUTE: CustomRouteConfig = {
   meta: {
     getBreadcrumbs: (route) => [
       HOME_BREADCRUMB,
-      { path: route.path, label: 'Templates' },
+      { url: route.path, text: 'Templates' },
     ],
   },
 };
@@ -27,7 +27,7 @@ export const EMAIL_TEMPLATE_FORM_ROUTE: CustomRouteConfig = {
   meta: {
     getBreadcrumbs: (route) => [
       HOME_BREADCRUMB,
-      { path: route.path, label: 'Template form' },
+      { url: route.path, text: 'Template form' },
     ],
   },
 };
@@ -39,7 +39,7 @@ export const EMAIL_LOG_LIST_ROUTE: CustomRouteConfig = {
   meta: {
     getBreadcrumbs: (route) => [
       HOME_BREADCRUMB,
-      { path: route.path, label: 'Logs' },
+      { url: route.path, text: 'Logs' },
     ],
   },
 };

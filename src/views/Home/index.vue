@@ -16,8 +16,8 @@ export default Vue.extend({
       emailNavItem: {
         name: 'E-Mail',
         linkList: [
-          { href: getEmailTemplateListUrl(), label: 'Templates' },
-          { href: getEmailLogListUrl(), label: 'Logs' },
+          { url: getEmailTemplateListUrl(), text: 'Templates' },
+          { url: getEmailLogListUrl(), text: 'Logs' },
         ],
       },
     };

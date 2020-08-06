@@ -29,7 +29,7 @@ export const HOME_ROUTE: CustomRouteConfig = {
   component: Home,
   name: 'Home',
   meta: {
-    getBreadcrumbs: (route: CustomRoute) => [{ path: '/', label: route.name }],
+    getBreadcrumbs: (route: CustomRoute) => [{ url: '/', text: 'Home' }],
   },
 };
 

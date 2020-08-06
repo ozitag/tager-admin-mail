@@ -4,11 +4,10 @@ import { getEmailLogListUrl, getEmailTemplateListUrl } from '../utils/paths';
 
 export const EMAIL_MENU_ITEM: MenuItemType = {
   id: 'mail',
-  name: 'E-Mail Notifications',
-  path: '',
+  text: 'E-Mail Notifications',
   icon: 'email',
   children: [
-    { name: 'Templates', path: getEmailTemplateListUrl() },
-    { name: 'Logs', path: getEmailLogListUrl() },
+    { text: 'Templates', url: getEmailTemplateListUrl() },
+    { text: 'Logs', url: getEmailLogListUrl() },
   ],
 };
