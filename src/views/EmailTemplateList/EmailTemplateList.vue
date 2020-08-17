@@ -1,6 +1,7 @@
 <template>
   <page title="E-Mail Templates">
     <template v-slot:content>
+      <module-configuration />
       <base-table
         :column-defs="columnDefs"
         :row-data="rowData"
@@ -31,13 +32,14 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import { defineComponent, onMounted } from '@vue/composition-api';
 import { ColumnDefinition } from '@tager/admin-ui';
-import { Nullable } from '@tager/admin-services';
 
-import { EmailTemplate } from '../typings/model';
-import { getTemplateList } from '../services/requests';
-import { getEmailTemplateFormUrl } from '../utils/paths';
+import { EmailTemplate } from '../../typings/model';
+import { getTemplateList } from '../../services/requests';
+import { getEmailTemplateFormUrl } from '../../utils/paths';
+import useResource from '../../hooks/useResource';
+import ModuleConfiguration from './components/ModuleConfiguration.vue';
 
 const COLUMN_DEFS: Array<ColumnDefinition<EmailTemplate>> = [
   {
@@ -64,38 +66,29 @@ const COLUMN_DEFS: Array<ColumnDefinition<EmailTemplate>> = [
   },
 ];
 
-export default Vue.extend({
+export default defineComponent({
   name: 'EmailTemplateList',
-  data(): {
-    columnDefs: Array<ColumnDefinition<EmailTemplate>>;
-    rowData: Array<EmailTemplate>;
-    isRowDataLoading: boolean;
-    errorMessage: Nullable<string>;
-  } {
+  components: { ModuleConfiguration },
+  setup() {
+    const [
+      fetchTemplateList,
+      { data: templateList, loading, error },
+    ] = useResource<Array<EmailTemplate>>({
+      fetchResource: getTemplateList,
+      initialValue: [],
+    });
+
+    onMounted(() => {
+      fetchTemplateList();
+    });
+
     return {
       columnDefs: COLUMN_DEFS,
-      rowData: [],
-      isRowDataLoading: false,
-      errorMessage: null,
+      rowData: templateList,
+      isRowDataLoading: loading,
+      errorMessage: error,
+      getEmailTemplateFormUrl,
     };
-  },
-  mounted(): void {
-    this.refreshTemplateList();
-  },
-  methods: {
-    refreshTemplateList(): Promise<void> {
-      this.isRowDataLoading = true;
-
-      return getTemplateList()
-        .then((response) => {
-          this.rowData = response.data;
-        })
-        .catch(console.error)
-        .finally(() => {
-          this.isRowDataLoading = false;
-        });
-    },
-    getEmailTemplateFormUrl,
   },
 });
 </script>

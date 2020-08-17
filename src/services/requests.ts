@@ -1,6 +1,11 @@
-import { request, ResponseBody } from '@tager/admin-services';
+import { Nullable, request, ResponseBody } from '@tager/admin-services';
 
-import { EmailLog, EmailTemplate } from '../typings/model';
+import {
+  EmailLog,
+  EmailModuleConfig,
+  EmailServiceTemplate,
+  EmailTemplate,
+} from '../typings/model';
 
 export function getTemplateList(): Promise<ResponseBody<Array<EmailTemplate>>> {
   return request.get({ path: '/admin/mail/templates' });
@@ -14,7 +19,8 @@ export function getTemplate(
 
 export type TemplateUpdatePayload = {
   subject: string;
-  body: string;
+  body: Nullable<string>;
+  serviceTemplate: Nullable<string>;
   recipients: Array<string>;
 };
 
@@ -30,4 +36,16 @@ export function updateTemplate(
 
 export function getLogList(): Promise<ResponseBody<Array<EmailLog>>> {
   return request.get({ path: '/admin/mail/logs' });
+}
+
+export function getEmailModuleConfiguration(): Promise<
+  ResponseBody<EmailModuleConfig>
+> {
+  return request.get({ path: '/admin/mail/info' });
+}
+
+export function getServiceTemplateList(): Promise<
+  ResponseBody<Array<EmailServiceTemplate>>
+> {
+  return request.get({ path: '/admin/mail/service-templates' });
 }

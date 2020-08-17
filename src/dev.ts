@@ -1,4 +1,5 @@
-import Vue from 'vue';
+import Vue, { CreateElement } from 'vue';
+import VueCompositionApi, { createApp } from '@vue/composition-api';
 import { configStore, i18n } from '@tager/admin-services';
 import { AdminUiPlugin } from '@tager/admin-ui';
 import {
@@ -17,12 +18,9 @@ import {
 } from './constants/routes';
 import config from './config/config.json';
 import App from './views/App.vue';
-import Home from './views/Home/index.vue';
+import Home from './views/Home.vue';
 
 configStore.setConfig(config);
-
-Vue.use(AdminUiPlugin);
-Vue.use(AdminLayoutPlugin);
 
 export const HOME_ROUTE: CustomRouteConfig = {
   path: '/',
@@ -45,11 +43,17 @@ const router = createRouter(
   { useTitleSync: false }
 );
 
-i18n.init().then(() => {
-  Vue.use(i18n.getPlugin());
+Vue.use(VueCompositionApi);
 
-  new Vue({
+i18n.init().then(() => {
+  const app = createApp({
     router,
-    render: (h) => h(App),
-  }).$mount('#app');
+    render: (h: CreateElement) => h(App),
+  });
+
+  app.use(i18n.getPlugin());
+  app.use(AdminUiPlugin);
+  app.use(AdminLayoutPlugin);
+
+  app.mount('#app');
 });

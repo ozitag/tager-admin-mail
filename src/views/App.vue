@@ -5,13 +5,13 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import { defineComponent } from '@vue/composition-api';
 
 import { EMAIL_MENU_ITEM } from '../constants/menu';
 
-export default Vue.extend({
+export default defineComponent({
   name: 'App',
-  data() {
+  setup() {
     return {
       sidebarMenuList: [EMAIL_MENU_ITEM],
     };

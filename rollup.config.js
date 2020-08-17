@@ -18,10 +18,10 @@ export default {
   ],
   external: [
     'vue',
+    '@vue/composition-api',
     '@tager/admin-services',
     '@tager/admin-ui',
     '@tager/admin-layout',
-    'path-to-regexp',
   ],
   plugins: [
     typescript(),
