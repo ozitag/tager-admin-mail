@@ -25,7 +25,7 @@ export type EmailLog = {
   error: Nullable<string>;
   createdAt: string;
   updatedAt: string;
-  attachments: Array<unknown>;
+  attachments: Array<{ name: string; url: string }>;
 };
 
 export type EmailModuleConfig = {

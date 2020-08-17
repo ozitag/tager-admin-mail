@@ -8,16 +8,16 @@
         :error-message="errorMessage"
       >
         <template v-slot:cell(template)="{ row }">
-          <template-cell
-            :template="row.template"
-            :service-template="row.serviceTemplate"
-          />
+          <template-cell :log="row" />
         </template>
         <template v-slot:cell(body)="{ row }">
-          <body-cell :email-body="row.body" />
+          <body-cell :log="row" />
         </template>
         <template v-slot:cell(error)="{ row }">
-          <error-cell :error="row.error" />
+          <error-cell :log="row" />
+        </template>
+        <template v-slot:cell(attachments)="{ row }">
+          <attachments-cell :log="row" />
         </template>
       </base-table>
     </template>
@@ -35,6 +35,7 @@ import BodyCell from './components/BodyCell.vue';
 import ErrorCell from './components/ErrorCell.vue';
 import TemplateCell from './components/TemplateCell.vue';
 import useResource from '../../hooks/useResource';
+import AttachmentsCell from './components/AttachmentsCell.vue';
 
 const COLUMN_DEFS: Array<ColumnDefinition<EmailLog>> = [
   {
@@ -55,6 +56,7 @@ const COLUMN_DEFS: Array<ColumnDefinition<EmailLog>> = [
     format: ({ row }) => capitalizeWord(row.status),
   },
   { id: 7, name: 'Date', field: 'createdAt', type: 'datetime' },
+  { id: 8, name: 'Attachments', field: 'attachments' },
   {
     id: 9,
     name: 'Error',
@@ -66,7 +68,7 @@ const COLUMN_DEFS: Array<ColumnDefinition<EmailLog>> = [
 
 export default defineComponent({
   name: 'EmailTemplateList',
-  components: { BodyCell, ErrorCell, TemplateCell },
+  components: { BodyCell, ErrorCell, TemplateCell, AttachmentsCell },
   setup() {
     const [fetchLogList, { data: logList, loading, error }] = useResource<
       Array<EmailLog>

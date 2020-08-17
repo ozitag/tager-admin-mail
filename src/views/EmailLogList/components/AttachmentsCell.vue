@@ -1,10 +1,9 @@
 <template>
-  <div>
-    <p>{{ log.template }}</p>
-    <p v-if="log.serviceTemplate" class="service-template">
-      Service Template: "{{ log.serviceTemplate }}"
-    </p>
-  </div>
+  <ul>
+    <li v-for="(attachment, index) of log.attachments" :key="index">
+      <a :href="attachment.url" target="_blank">{{ attachment.name }}</a>
+    </li>
+  </ul>
 </template>
 
 <script lang="ts">
@@ -14,7 +13,7 @@ import { EmailLog } from '../../../typings/model';
 type Props = Readonly<{ log: EmailLog }>;
 
 export default defineComponent<Props>({
-  name: 'EmailTemplateCell',
+  name: 'EmailAttachmentsCell',
   props: {
     log: {
       type: Object,
@@ -24,9 +23,11 @@ export default defineComponent<Props>({
 });
 </script>
 
-<style scoped>
-.service-template {
-  font-size: 0.85rem;
-  font-style: italic;
+<style scoped lang="scss">
+a {
+  color: var(--primary);
+  &:hover {
+    text-decoration: underline;
+  }
 }
 </style>

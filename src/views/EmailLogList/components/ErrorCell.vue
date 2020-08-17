@@ -8,13 +8,16 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref } from '@vue/composition-api';
+import { EmailLog } from '../../../typings/model';
 
-export default defineComponent({
+type Props = Readonly<{ log: EmailLog }>;
+
+export default defineComponent<Props>({
   name: 'EmailErrorCell',
   props: {
-    error: {
-      type: String,
-      required: false,
+    log: {
+      type: Object,
+      required: true,
     },
   },
   setup(props) {
@@ -26,14 +29,14 @@ export default defineComponent({
 
     const errorText = computed(() => {
       if (
-        typeof props.error === 'string' &&
-        props.error.length > 80 &&
+        typeof props.log.error === 'string' &&
+        props.log.error.length > 80 &&
         !isOpen.value
       ) {
-        return props.error.slice(0, 80) + '...';
+        return props.log.error.slice(0, 80) + '...';
       }
 
-      return props.error;
+      return props.log.error;
     });
 
     return { isOpen, toggleError, errorText };

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p v-if="isOpen" class="email-body" v-html="emailBody || ''" />
+    <p v-if="isOpen" class="email-body" v-html="log.body" />
     <base-button
       variant="outline-secondary"
       class="toggle-button"
@@ -13,13 +13,16 @@
 
 <script lang="ts">
 import { defineComponent, ref } from '@vue/composition-api';
+import { EmailLog } from '../../../typings/model';
 
-export default defineComponent({
+type Props = Readonly<{ log: EmailLog }>;
+
+export default defineComponent<Props>({
   name: 'EmailBodyCell',
   props: {
-    emailBody: {
-      type: String,
-      required: false,
+    log: {
+      type: Object,
+      required: true,
     },
   },
   setup() {
