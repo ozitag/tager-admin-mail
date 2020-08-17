@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p v-if="isOpen" class="email-body" v-html="emailBody" />
+    <p v-if="isOpen" class="email-body" v-html="emailBody || ''" />
     <base-button
       variant="outline-secondary"
       class="toggle-button"
@@ -19,7 +19,7 @@ export default defineComponent({
   props: {
     emailBody: {
       type: String,
-      required: true,
+      required: false,
     },
   },
   setup() {
