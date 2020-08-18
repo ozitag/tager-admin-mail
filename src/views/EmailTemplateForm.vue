@@ -38,35 +38,36 @@
         no-options-message="No templates"
         :options="serviceTemplateOptions"
       />
-      <form-field-rich-text-input
-        v-else
-        v-model="values.body"
-        name="body"
-        :error="errors.body"
-        label="Body"
-      />
+      <template v-else>
+        <form-field-rich-text-input
+          v-model="values.body"
+          name="body"
+          :error="errors.body"
+          label="Body"
+        />
 
-      <div
-        v-if="emailTemplate && emailTemplate.variables.length > 0"
-        class="legend-vars"
-      >
-        <h4 class="title">Template variables</h4>
-        <ul>
-          <li v-for="variable of emailTemplate.variables" :key="variable.key">
-            <span>{{ variable.label }}</span> -
-            <span>
-              {{ getKeyTemplate(variable.key) }}
-            </span>
-            <base-button
-              variant="icon"
-              title="Copy"
-              @click="copyVarTemplate(variable.key)"
-            >
-              <svg-icon name="contentCopy" />
-            </base-button>
-          </li>
-        </ul>
-      </div>
+        <div
+          v-if="emailTemplate && emailTemplate.variables.length > 0"
+          class="legend-vars"
+        >
+          <h4 class="title">Template variables</h4>
+          <ul>
+            <li v-for="variable of emailTemplate.variables" :key="variable.key">
+              <span>{{ variable.label }}</span> -
+              <span>
+                {{ getKeyTemplate(variable.key) }}
+              </span>
+              <base-button
+                variant="icon"
+                title="Copy"
+                @click="copyVarTemplate(variable.key)"
+              >
+                <svg-icon name="contentCopy" />
+              </base-button>
+            </li>
+          </ul>
+        </div>
+      </template>
     </form>
   </page>
 </template>
@@ -115,7 +116,7 @@ export default defineComponent({
 
     const [
       fetchServiceTemplateList,
-      { data: serviceTemplateList },
+      { data: serviceTemplateList, loading: isServiceTemplateListLoading },
     ] = useResource<Array<EmailServiceTemplate>>({
       fetchResource: getServiceTemplateList,
       initialValue: [],
@@ -127,9 +128,10 @@ export default defineComponent({
       () => context.root.$route.params.templateId
     );
 
-    const [fetchEmailTemplate, { data: emailTemplate, loading }] = useResource<
-      Nullable<EmailTemplate>
-    >({
+    const [
+      fetchEmailTemplate,
+      { data: emailTemplate, loading: isTemplateLoading },
+    ] = useResource<Nullable<EmailTemplate>>({
       fetchResource: () => getTemplate(templateId.value),
       initialValue: null,
     });
@@ -149,15 +151,17 @@ export default defineComponent({
     ): FormValues {
       if (!template) return INITIAL_VALUES;
 
+      const foundServiceTemplate =
+        serviceTemplateOptions.find(
+          (option) => option.value === template.serviceTemplate
+        ) ?? null;
+
       return {
         subject: template.subject,
         body: template.body,
         recipients: template.recipients.join(','),
-        useServiceTemplate: false,
-        serviceTemplate:
-          serviceTemplateOptions.find(
-            (option) => option.value === template.serviceTemplate
-          ) ?? null,
+        useServiceTemplate: Boolean(foundServiceTemplate),
+        serviceTemplate: foundServiceTemplate,
       };
     }
 
@@ -229,6 +233,10 @@ export default defineComponent({
         : 'E-Mail template'
     );
 
+    const isInitialLoading = computed<boolean>(
+      () => isTemplateLoading.value || isServiceTemplateListLoading.value
+    );
+
     return {
       templateListRoutePath: getEmailTemplateListUrl(),
       values,
@@ -238,7 +246,7 @@ export default defineComponent({
       getKeyTemplate,
       submitForm,
       isSubmitting,
-      isInitialLoading: loading,
+      isInitialLoading,
       emailTemplate,
       serviceTemplateOptions: serviceTemplateList,
     };
