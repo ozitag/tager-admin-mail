@@ -68,7 +68,7 @@ const COLUMN_DEFS: Array<ColumnDefinition<EmailLog>> = [
 ];
 
 export default defineComponent({
-  name: 'EmailTemplateList',
+  name: 'EmailLogList',
   components: { BodyCell, ErrorCell, TemplateCell, AttachmentsCell },
   setup(props, context) {
     const {
