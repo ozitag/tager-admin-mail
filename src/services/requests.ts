@@ -34,8 +34,10 @@ export function updateTemplate(
   });
 }
 
-export function getLogList(): Promise<ResponseBody<Array<EmailLog>>> {
-  return request.get({ path: '/admin/mail/logs' });
+export function getLogList(params?: {
+  query?: string;
+}): Promise<ResponseBody<Array<EmailLog>>> {
+  return request.get({ path: '/admin/mail/logs', params });
 }
 
 export function getEmailModuleConfiguration(): Promise<

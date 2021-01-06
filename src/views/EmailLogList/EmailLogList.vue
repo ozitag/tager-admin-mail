@@ -1,11 +1,13 @@
 <template>
   <page title="E-Mail Logs">
     <template v-slot:content>
-      <base-table
+      <data-table
         :column-defs="columnDefs"
         :row-data="rowData"
         :loading="isRowDataLoading"
         :error-message="errorMessage"
+        :search-query="searchQuery"
+        @change="handleChange"
       >
         <template v-slot:cell(template)="{ row }">
           <template-cell :log="row" />
@@ -19,14 +21,14 @@
         <template v-slot:cell(attachments)="{ row }">
           <attachments-cell :log="row" />
         </template>
-      </base-table>
+      </data-table>
     </template>
   </page>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from '@vue/composition-api';
-import { ColumnDefinition } from '@tager/admin-ui';
+import { defineComponent } from '@vue/composition-api';
+import { ColumnDefinition, useDataTable } from '@tager/admin-ui';
 
 import { EmailLog } from '../../typings/model';
 import { getLogList } from '../../services/requests';
@@ -34,7 +36,6 @@ import { capitalizeWord } from '../../utils/common';
 import BodyCell from './components/BodyCell.vue';
 import ErrorCell from './components/ErrorCell.vue';
 import TemplateCell from './components/TemplateCell.vue';
-import useResource from '../../hooks/useResource';
 import AttachmentsCell from './components/AttachmentsCell.vue';
 
 const COLUMN_DEFS: Array<ColumnDefinition<EmailLog>> = [
@@ -69,23 +70,27 @@ const COLUMN_DEFS: Array<ColumnDefinition<EmailLog>> = [
 export default defineComponent({
   name: 'EmailTemplateList',
   components: { BodyCell, ErrorCell, TemplateCell, AttachmentsCell },
-  setup() {
-    const [fetchLogList, { data: logList, loading, error }] = useResource<
-      Array<EmailLog>
-    >({
-      fetchResource: getLogList,
+  setup(props, context) {
+    const {
+      isLoading: isRowDataLoading,
+      rowData: logList,
+      errorMessage,
+      searchQuery,
+      handleChange,
+    } = useDataTable<EmailLog>({
+      fetchEntityList: (params) => getLogList({ query: params.searchQuery }),
       initialValue: [],
-    });
-
-    onMounted(() => {
-      fetchLogList();
+      context,
+      resourceName: 'Log list',
     });
 
     return {
       columnDefs: COLUMN_DEFS,
       rowData: logList,
-      isRowDataLoading: loading,
-      errorMessage: error,
+      isRowDataLoading,
+      errorMessage,
+      searchQuery,
+      handleChange,
     };
   },
 });
