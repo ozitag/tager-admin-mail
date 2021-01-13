@@ -7,6 +7,12 @@
         :loading="isRowDataLoading"
         :error-message="errorMessage"
         :search-query="searchQuery"
+        :pagination="{
+          pageSize,
+          pageNumber,
+          pageCount,
+          disabled: isRowDataLoading,
+        }"
         @change="handleChange"
       >
         <template v-slot:cell(template)="{ row }">
@@ -77,11 +83,20 @@ export default defineComponent({
       errorMessage,
       searchQuery,
       handleChange,
+      pageSize,
+      pageNumber,
+      pageCount,
     } = useDataTable<EmailLog>({
-      fetchEntityList: (params) => getLogList({ query: params.searchQuery }),
+      fetchEntityList: (params) =>
+        getLogList({
+          query: params.searchQuery,
+          pageNumber: params.pageNumber,
+          pageSize: params.pageSize,
+        }),
       initialValue: [],
       context,
       resourceName: 'Log list',
+      pageSize: 250,
     });
 
     return {
@@ -91,6 +106,9 @@ export default defineComponent({
       errorMessage,
       searchQuery,
       handleChange,
+      pageSize,
+      pageNumber,
+      pageCount,
     };
   },
 });
