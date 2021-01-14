@@ -36,6 +36,8 @@ export function updateTemplate(
 
 export function getLogList(params?: {
   query?: string;
+  pageNumber?: number;
+  pageSize?: number;
 }): Promise<ResponseBody<Array<EmailLog>>> {
   return request.get({ path: '/admin/mail/logs', params });
 }
