@@ -176,7 +176,7 @@ export default defineComponent({
       );
     });
 
-    function submitForm() {
+    function submitForm({ shouldExit }: { shouldExit: boolean }) {
       isSubmitting.value = true;
 
       const body: TemplateUpdatePayload = {
@@ -195,7 +195,10 @@ export default defineComponent({
       updateTemplate(templateId.value, body)
         .then(() => {
           errors.value = {};
-          context.root.$router.push(getEmailTemplateListUrl());
+
+          if (shouldExit) {
+            context.root.$router.push(getEmailTemplateListUrl());
+          }
 
           context.root.$toast({
             variant: 'success',
