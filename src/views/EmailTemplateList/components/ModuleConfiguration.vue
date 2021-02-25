@@ -1,13 +1,13 @@
 <template>
   <div v-if="config" class="config-block">
-    <h4>Configuration:</h4>
+    <h4>{{ $t('mail:configuration') }}:</h4>
     <ul class="option-list">
       <li>
-        <span>Enabled: </span>
+        <span>{{ $t('mail:enabled') }}: </span>
         <span>{{ config.enabled }}</span>
       </li>
       <li>
-        <span>Allowed emails: </span>
+        <span>{{ $t('mail:allowedEmails') }}: </span>
         <span>
           {{
             Array.isArray(config.allowedEmails)
@@ -17,11 +17,11 @@
         </span>
       </li>
       <li>
-        <span>Subject template: </span>
+        <span>{{ $t('mail:subjectTemplate') }}: </span>
         <span>{{ config.subjectTemplate }}</span>
       </li>
       <li>
-        <span>Service: </span>
+        <span>{{ $t('mail:service') }}: </span>
         <span>{{ config.service }}</span>
       </li>
     </ul>

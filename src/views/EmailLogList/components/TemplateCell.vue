@@ -2,7 +2,7 @@
   <div>
     <p>{{ log.template }}</p>
     <p v-if="log.serviceTemplate" class="service-template">
-      Service Template: "{{ log.serviceTemplate }}"
+      {{ $t('mail:serviceTemplate') }}: "{{ log.serviceTemplate }}"
     </p>
   </div>
 </template>

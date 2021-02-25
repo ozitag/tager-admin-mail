@@ -1,5 +1,5 @@
 <template>
-  <page title="E-Mail Templates">
+  <page :title="t('mail:EMailTemplates')">
     <template v-slot:content>
       <module-configuration />
       <base-table
@@ -20,7 +20,7 @@
         <template v-slot:cell(actions)="{ row }">
           <base-button
             variant="icon"
-            title="Edit"
+            :title="t('mail:edit')"
             :href="getEmailTemplateFormUrl({ templateId: row.id })"
           >
             <svg-icon name="edit"></svg-icon>
@@ -32,8 +32,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from '@vue/composition-api';
-import { ColumnDefinition } from '@tager/admin-ui';
+import { defineComponent, onMounted, SetupContext } from '@vue/composition-api';
+import { ColumnDefinition, useTranslation } from '@tager/admin-ui';
 
 import { EmailTemplate } from '../../typings/model';
 import { getTemplateList } from '../../services/requests';
@@ -41,35 +41,12 @@ import { getEmailTemplateFormUrl } from '../../utils/paths';
 import useResource from '../../hooks/useResource';
 import ModuleConfiguration from './components/ModuleConfiguration.vue';
 
-const COLUMN_DEFS: Array<ColumnDefinition<EmailTemplate>> = [
-  {
-    id: 1,
-    name: 'Name',
-    field: 'name',
-  },
-  {
-    id: 2,
-    name: 'Subject',
-    field: 'subject',
-  },
-  {
-    id: 4,
-    name: 'Recipients',
-    field: 'recipients',
-  },
-  {
-    id: 5,
-    name: 'Actions',
-    field: 'actions',
-    style: { width: '80px', textAlign: 'center' },
-    headStyle: { width: '80px', textAlign: 'center' },
-  },
-];
-
 export default defineComponent({
   name: 'EmailTemplateList',
   components: { ModuleConfiguration },
-  setup() {
+  setup(props, context: SetupContext) {
+    const { t } = useTranslation(context);
+
     const [
       fetchTemplateList,
       { data: templateList, loading, error },
@@ -82,8 +59,34 @@ export default defineComponent({
       fetchTemplateList();
     });
 
+    const columnDefs: Array<ColumnDefinition<EmailTemplate>> = [
+      {
+        id: 1,
+        name: t('mail:name'),
+        field: 'name',
+      },
+      {
+        id: 2,
+        name: t('mail:subject'),
+        field: 'subject',
+      },
+      {
+        id: 4,
+        name: t('mail:recipients'),
+        field: 'recipients',
+      },
+      {
+        id: 5,
+        name: t('mail:actions'),
+        field: 'actions',
+        style: { width: '80px', textAlign: 'center' },
+        headStyle: { width: '80px', textAlign: 'center' },
+      },
+    ];
+
     return {
-      columnDefs: COLUMN_DEFS,
+      t,
+      columnDefs,
       rowData: templateList,
       isRowDataLoading: loading,
       errorMessage: error,

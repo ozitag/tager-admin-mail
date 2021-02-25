@@ -13,29 +13,29 @@
         v-model="values.subject"
         name="subject"
         :error="errors.subject"
-        label="Subject"
+        :label="t('mail:subject')"
       />
 
       <form-field
         v-model="values.recipients"
         name="recipients"
         :error="errors.recipients"
-        label="Recipients"
+        :label="t('mail:recipients')"
       />
 
       <form-field-checkbox
         v-model="values.useServiceTemplate"
         name="useServiceTemplate"
         :error="errors.useServiceTemplate"
-        label="Use Service Template"
+        :label="t('mail:useServiceTemplate')"
       />
       <form-field-select
         v-if="values.useServiceTemplate"
         v-model="values.serviceTemplate"
         name="serviceTemplate"
         :error="errors.serviceTemplate"
-        label="Service Template"
-        no-options-message="No templates"
+        :label="t('mail:serviceTemplate')"
+        :no-options-message="t('mail:noTemplates')"
         :options="serviceTemplateOptions"
       />
       <template v-else>
@@ -43,14 +43,14 @@
           v-model="values.body"
           name="body"
           :error="errors.body"
-          label="Body"
+          :label="t('mail:body')"
         />
 
         <div
           v-if="emailTemplate && emailTemplate.variables.length > 0"
           class="legend-vars"
         >
-          <h4 class="title">Template variables</h4>
+          <h4 class="title">{{ t('mail:templateVariables') }}</h4>
           <ul>
             <li v-for="variable of emailTemplate.variables" :key="variable.key">
               <span>{{ variable.label }}</span> -
@@ -59,7 +59,7 @@
               </span>
               <base-button
                 variant="icon"
-                title="Copy"
+                :title="t('mail:copy')"
                 @click="copyVarTemplate(variable.key)"
               >
                 <svg-icon name="contentCopy" />
@@ -88,10 +88,11 @@ import {
   defineComponent,
   onMounted,
   ref,
+  SetupContext,
   watch,
 } from '@vue/composition-api';
 import useResource from '../hooks/useResource';
-import { OptionType } from '@tager/admin-ui';
+import { OptionType, useTranslation } from '@tager/admin-ui';
 
 type FormValues = {
   subject: string;
@@ -111,7 +112,9 @@ const INITIAL_VALUES: FormValues = {
 
 export default defineComponent({
   name: 'EmailTemplateForm',
-  setup(props, context) {
+  setup(props, context: SetupContext) {
+    const { t } = useTranslation(context);
+
     /** Service template list fetching */
 
     const [
@@ -199,8 +202,8 @@ export default defineComponent({
 
           context.root.$toast({
             variant: 'success',
-            title: 'Success',
-            body: 'Template has been successfully updated',
+            title: t('mail:success'),
+            body: t('mail:templateHasBeenSuccessfullyUpdated'),
           });
         })
         .catch((error) => {
@@ -208,8 +211,8 @@ export default defineComponent({
           errors.value = convertRequestErrorToMap(error);
           context.root.$toast({
             variant: 'danger',
-            title: 'Error',
-            body: 'Template update has been failed',
+            title: t('mail:error'),
+            body: t('mail:templateUpdateHasBeenFailed'),
           });
         })
         .finally(() => {
@@ -229,8 +232,8 @@ export default defineComponent({
 
     const pageTitle = computed<string>(() =>
       emailTemplate.value
-        ? `E-Mail template "${emailTemplate.value.name}"`
-        : 'E-Mail template'
+        ? `${t('mail:EMailTemplate')} "${emailTemplate.value.name}"`
+        : t('mail:EMailTemplate')
     );
 
     const isInitialLoading = computed<boolean>(
@@ -238,6 +241,7 @@ export default defineComponent({
     );
 
     return {
+      t,
       templateListRoutePath: getEmailTemplateListUrl(),
       values,
       errors,
