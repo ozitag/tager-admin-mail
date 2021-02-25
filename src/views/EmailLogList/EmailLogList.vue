@@ -1,5 +1,5 @@
 <template>
-  <page title="E-Mail Logs">
+  <page :title="t('mail:EMailLogs')">
     <template v-slot:content>
       <data-table
         :column-defs="columnDefs"
@@ -33,8 +33,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
-import { ColumnDefinition, useDataTable } from '@tager/admin-ui';
+import { defineComponent, SetupContext } from '@vue/composition-api';
+import {
+  ColumnDefinition,
+  useDataTable,
+  useTranslation,
+} from '@tager/admin-ui';
 
 import { EmailLog } from '../../typings/model';
 import { getLogList } from '../../services/requests';
@@ -44,39 +48,12 @@ import ErrorCell from './components/ErrorCell.vue';
 import TemplateCell from './components/TemplateCell.vue';
 import AttachmentsCell from './components/AttachmentsCell.vue';
 
-const COLUMN_DEFS: Array<ColumnDefinition<EmailLog>> = [
-  {
-    id: 1,
-    name: 'ID',
-    field: 'id',
-    style: { width: '50px', textAlign: 'center' },
-    headStyle: { width: '50px', textAlign: 'center' },
-  },
-  { id: 2, name: 'Template', field: 'template' },
-  { id: 3, name: 'Recipient', field: 'recipient' },
-  { id: 4, name: 'Subject', field: 'subject' },
-  { id: 5, name: 'Body', field: 'body' },
-  {
-    id: 6,
-    name: 'Status',
-    field: 'status',
-    format: ({ row }) => capitalizeWord(row.status),
-  },
-  { id: 7, name: 'Date', field: 'createdAt', type: 'datetime' },
-  { id: 8, name: 'Attachments', field: 'attachments' },
-  {
-    id: 9,
-    name: 'Error',
-    field: 'error',
-    useCustomDataCell: true,
-    headStyle: { width: '300px' },
-  },
-];
-
 export default defineComponent({
   name: 'EmailLogList',
   components: { BodyCell, ErrorCell, TemplateCell, AttachmentsCell },
-  setup(props, context) {
+  setup(props, context: SetupContext) {
+    const { t } = useTranslation(context);
+
     const {
       isLoading: isRowDataLoading,
       rowData: logList,
@@ -99,8 +76,38 @@ export default defineComponent({
       pageSize: 250,
     });
 
+    const columnDefs: Array<ColumnDefinition<EmailLog>> = [
+      {
+        id: 1,
+        name: 'ID',
+        field: 'id',
+        style: { width: '50px', textAlign: 'center' },
+        headStyle: { width: '50px', textAlign: 'center' },
+      },
+      { id: 2, name: t('mail:template'), field: 'template' },
+      { id: 3, name: t('mail:recipient'), field: 'recipient' },
+      { id: 4, name: t('mail:subject'), field: 'subject' },
+      { id: 5, name: t('mail:body'), field: 'body' },
+      {
+        id: 6,
+        name: t('mail:status'),
+        field: 'status',
+        format: ({ row }) => capitalizeWord(row.status),
+      },
+      { id: 7, name: t('mail:date'), field: 'createdAt', type: 'datetime' },
+      { id: 8, name: t('mail:attachments'), field: 'attachments' },
+      {
+        id: 9,
+        name: t('mail:error'),
+        field: 'error',
+        useCustomDataCell: true,
+        headStyle: { width: '300px' },
+      },
+    ];
+
     return {
-      columnDefs: COLUMN_DEFS,
+      t,
+      columnDefs,
       rowData: logList,
       isRowDataLoading,
       errorMessage,

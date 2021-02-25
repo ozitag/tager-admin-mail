@@ -6,7 +6,7 @@
       class="toggle-button"
       @click="toggleBody"
     >
-      {{ isOpen ? 'Hide Body' : 'View Body' }}
+      {{ isOpen ? $t('mail:hideBody') : $t('mail:viewBody') }}
     </base-button>
   </div>
 </template>

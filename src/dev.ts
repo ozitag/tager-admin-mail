@@ -19,6 +19,8 @@ import {
 import config from './config/config.json';
 import App from './views/App.vue';
 import Home from './views/Home.vue';
+import EN from './locales/en';
+import RU from './locales/ru';
 
 configStore.setConfig(config);
 
@@ -45,7 +47,10 @@ const router = createRouter(
 
 Vue.use(VueCompositionApi);
 
-i18n.init().then(() => {
+i18n.addTranslations('en', 'mail', EN);
+i18n.addTranslations('ru', 'mail', RU);
+
+i18n.init({ debug: false }).then(() => {
   const app = createApp({
     router,
     render: (h: CreateElement) => h(App),

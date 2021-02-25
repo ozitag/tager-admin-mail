@@ -6,16 +6,14 @@ import EmailLogList from '../views/EmailLogList';
 
 import { EMAIL_ROUTE_PATHS } from './paths';
 
-const HOME_BREADCRUMB = { url: '/', text: 'Home' };
-
 export const EMAIL_TEMPLATE_LIST_ROUTE: CustomRouteConfig = {
   path: EMAIL_ROUTE_PATHS.TEMPLATE_LIST,
   component: EmailTemplateList,
   name: 'Templates',
   meta: {
-    getBreadcrumbs: (route) => [
-      HOME_BREADCRUMB,
-      { url: route.path, text: 'Templates' },
+    getBreadcrumbs: (route, t) => [
+      { url: '/', text: t('mail:home') },
+      { url: route.path, text: t('mail:templates') },
     ],
   },
 };
@@ -25,9 +23,9 @@ export const EMAIL_TEMPLATE_FORM_ROUTE: CustomRouteConfig = {
   component: EmailTemplateForm,
   name: 'Template form',
   meta: {
-    getBreadcrumbs: (route) => [
-      HOME_BREADCRUMB,
-      { url: route.path, text: 'Template form' },
+    getBreadcrumbs: (route, t) => [
+      { url: '/', text: t('mail:home') },
+      { url: route.path, text: t('mail:templateForm') },
     ],
   },
 };
@@ -37,9 +35,9 @@ export const EMAIL_LOG_LIST_ROUTE: CustomRouteConfig = {
   component: EmailLogList,
   name: 'Logs',
   meta: {
-    getBreadcrumbs: (route) => [
-      HOME_BREADCRUMB,
-      { url: route.path, text: 'Logs' },
+    getBreadcrumbs: (route, t) => [
+      { url: '/', text: t('mail:home') },
+      { url: route.path, text: t('mail:logs') },
     ],
   },
 };
