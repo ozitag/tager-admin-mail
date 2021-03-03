@@ -39,34 +39,14 @@
         :options="serviceTemplateOptions"
       />
       <template v-else>
-        <form-field-rich-text-input
+        <form-field-message-template
           v-model="values.body"
-          name="body"
-          :error="errors.body"
           :label="t('mail:body')"
+          :variable-list="emailTemplate ? emailTemplate.variables : []"
+          :error="errors.body"
+          type="richText"
+          name="body"
         />
-
-        <div
-          v-if="emailTemplate && emailTemplate.variables.length > 0"
-          class="legend-vars"
-        >
-          <h4 class="title">{{ t('mail:templateVariables') }}</h4>
-          <ul>
-            <li v-for="variable of emailTemplate.variables" :key="variable.key">
-              <span>{{ variable.label }}</span> -
-              <span>
-                {{ getKeyTemplate(variable.key) }}
-              </span>
-              <base-button
-                variant="icon"
-                :title="t('mail:copy')"
-                @click="copyVarTemplate(variable.key)"
-              >
-                <svg-icon name="contentCopy" />
-              </base-button>
-            </li>
-          </ul>
-        </div>
       </template>
     </form>
   </page>
@@ -222,14 +202,6 @@ export default defineComponent({
 
     /** Misc */
 
-    function getKeyTemplate(key: string): string {
-      return `{{${key}}}`;
-    }
-
-    function copyVarTemplate(key: string) {
-      navigator.clipboard.writeText(getKeyTemplate(key)).catch(console.error);
-    }
-
     const pageTitle = computed<string>(() =>
       emailTemplate.value
         ? `${t('mail:EMailTemplate')} "${emailTemplate.value.name}"`
@@ -246,8 +218,6 @@ export default defineComponent({
       values,
       errors,
       pageTitle,
-      copyVarTemplate,
-      getKeyTemplate,
       submitForm,
       isSubmitting,
       isInitialLoading,
@@ -258,23 +228,4 @@ export default defineComponent({
 });
 </script>
 
-<style scoped lang="scss">
-.legend-vars {
-  h4 {
-    margin-bottom: 0.5rem;
-  }
-  ul {
-    display: inline-block;
-    padding-left: 1.2rem;
-    list-style-type: decimal;
-
-    li:not(:last-child) {
-      border-bottom: 1px solid #eee;
-    }
-  }
-
-  button {
-    margin-left: 0.5rem;
-  }
-}
-</style>
+<style scoped lang="scss"></style>
