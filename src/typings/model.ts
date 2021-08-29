@@ -9,6 +9,8 @@ export type EmailTemplate = {
   recipients: Array<string>;
   variables: Array<{ key: string; label: string }>;
   serviceTemplate: Nullable<string>;
+  fromName: Nullable<string>;
+  fromEmail: Nullable<string>;
 };
 
 export type EmailServiceTemplate = { value: string; label: string };

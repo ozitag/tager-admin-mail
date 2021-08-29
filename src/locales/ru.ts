@@ -37,6 +37,8 @@ const RU: typeof EN = {
   viewBody: 'Просмотр тела',
   home: 'Главная',
   systemName: 'Служебное имя',
+  fromName: 'Имя отправителя',
+  fromEmail: 'E-Mail отправителя',
 };
 
 export default RU;

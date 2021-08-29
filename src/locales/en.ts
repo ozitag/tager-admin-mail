@@ -35,6 +35,8 @@ const EN = {
   viewBody: 'View Body',
   home: 'Home',
   systemName: 'System name',
+  fromName: 'Sender name',
+  fromEmail: 'Sender email',
 };
 
 export default EN;

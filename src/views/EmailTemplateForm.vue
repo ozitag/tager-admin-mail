@@ -30,12 +30,27 @@
         :label="t('mail:recipients')"
       />
 
-      <form-field-checkbox
-        v-model="values.useServiceTemplate"
-        name="useServiceTemplate"
-        :error="errors.useServiceTemplate"
-        :label="t('mail:useServiceTemplate')"
+      <form-field
+          v-model="values.fromName"
+          name="fromName"
+          :error="errors.fromName"
+          :label="t('mail:fromName')"
       />
+
+      <form-field
+          v-model="values.fromEmail"
+          name="fromEmail"
+          :error="errors.fromEmail"
+          :label="t('mail:fromEmail')"
+      />
+
+      <form-field-checkbox
+          v-model="values.useServiceTemplate"
+          name="useServiceTemplate"
+          :error="errors.useServiceTemplate"
+          :label="t('mail:useServiceTemplate')"
+      />
+
       <form-field-select
         v-if="values.useServiceTemplate"
         v-model="values.serviceTemplate"
@@ -55,6 +70,8 @@
           name="body"
         />
       </template>
+
+
     </form>
   </page>
 </template>
@@ -88,6 +105,8 @@ type FormValues = {
   recipients: string;
   useServiceTemplate: boolean;
   serviceTemplate: Nullable<OptionType>;
+  fromName: Nullable<string>;
+  fromEmail: Nullable<string>;
 };
 
 const INITIAL_VALUES: FormValues = {
@@ -97,6 +116,8 @@ const INITIAL_VALUES: FormValues = {
   recipients: '',
   useServiceTemplate: false,
   serviceTemplate: null,
+  fromName: null,
+  fromEmail: null,
 };
 
 export default defineComponent({
@@ -157,6 +178,8 @@ export default defineComponent({
         recipients: template.recipients.join(','),
         useServiceTemplate: Boolean(foundServiceTemplate),
         serviceTemplate: foundServiceTemplate,
+        fromName: template.fromName,
+        fromEmail: template.fromEmail,
       };
     }
 
@@ -181,6 +204,8 @@ export default defineComponent({
           values.value.useServiceTemplate && values.value.serviceTemplate
             ? values.value.serviceTemplate.value
             : null,
+        fromName: values.value.fromName,
+        fromEmail: values.value.fromEmail,
         recipients: values.value.recipients
           .split(',')
           .map((recipient) => recipient.trim())
