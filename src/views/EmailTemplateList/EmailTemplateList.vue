@@ -61,6 +61,11 @@ export default defineComponent({
 
     const columnDefs: Array<ColumnDefinition<EmailTemplate>> = [
       {
+        id: 0,
+        name: t('mail:systemName'),
+        field: 'alias',
+      },
+      {
         id: 1,
         name: t('mail:name'),
         field: 'name',

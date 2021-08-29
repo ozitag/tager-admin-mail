@@ -34,6 +34,7 @@ const EN = {
   hideBody: 'Hide Body',
   viewBody: 'View Body',
   home: 'Home',
+  systemName: 'System name',
 };
 
 export default EN;

@@ -36,6 +36,7 @@ const RU: typeof EN = {
   hideBody: 'Скрыть тело',
   viewBody: 'Просмотр тела',
   home: 'Главная',
+  systemName: 'Служебное имя',
 };
 
 export default RU;

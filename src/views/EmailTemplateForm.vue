@@ -9,6 +9,13 @@
     }"
   >
     <form novalidate @submit.prevent>
+      <field-value
+          v-if="!isCreation"
+          :label="t('mail:systemName')"
+          type="text"
+          :text="values.alias"
+      />
+
       <form-field
         v-model="values.subject"
         name="subject"
@@ -76,6 +83,7 @@ import { OptionType, useTranslation } from '@tager/admin-ui';
 
 type FormValues = {
   subject: string;
+  alias: string;
   body: string;
   recipients: string;
   useServiceTemplate: boolean;
@@ -83,6 +91,7 @@ type FormValues = {
 };
 
 const INITIAL_VALUES: FormValues = {
+  alias: '',
   subject: '',
   body: '',
   recipients: '',
@@ -110,6 +119,8 @@ export default defineComponent({
     const templateId = computed<string>(
       () => context.root.$route.params.templateId
     );
+
+    const isCreation = computed(() => templateId.value === 'create');
 
     const [
       fetchEmailTemplate,
@@ -141,6 +152,7 @@ export default defineComponent({
 
       return {
         subject: template.subject,
+        alias: template.alias,
         body: template.body,
         recipients: template.recipients.join(','),
         useServiceTemplate: Boolean(foundServiceTemplate),
@@ -214,6 +226,7 @@ export default defineComponent({
 
     return {
       t,
+      isCreation,
       templateListRoutePath: getEmailTemplateListUrl(),
       values,
       errors,
