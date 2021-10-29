@@ -10,6 +10,8 @@ const EN = {
   EMailTemplate: 'E-Mail template',
   subject: 'Subject',
   recipients: 'Recipients',
+  cc: 'CC',
+  bcc: 'BCC',
   useServiceTemplate: 'Use Service Template',
   serviceTemplate: 'Service Template',
   noTemplates: 'No templates',

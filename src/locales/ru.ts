@@ -12,6 +12,8 @@ const RU: typeof EN = {
   EMailTemplate: 'E-Mail шаблон',
   subject: 'Тема',
   recipients: 'Получатели',
+  cc: 'Копия (CC)',
+  bcc: 'Скрытая копия (BCC)',
   useServiceTemplate: 'Использовать шаблон услуги',
   serviceTemplate: 'Шаблон услуги',
   noTemplates: 'Нет шаблонов',

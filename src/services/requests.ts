@@ -22,6 +22,8 @@ export type TemplateUpdatePayload = {
   body: Nullable<string>;
   serviceTemplate: Nullable<string>;
   recipients: Array<string>;
+  cc: Array<string>;
+  bcc: Array<string>;
   fromName: Nullable<string>;
   fromEmail: Nullable<string>;
 };

@@ -7,6 +7,8 @@ export type EmailTemplate = {
   subject: string;
   body: string;
   recipients: Array<string>;
+  cc: Array<string>;
+  bcc: Array<string>;
   variables: Array<{ key: string; label: string }>;
   serviceTemplate: Nullable<string>;
   fromName: Nullable<string>;
