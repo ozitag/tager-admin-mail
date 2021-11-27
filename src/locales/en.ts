@@ -39,6 +39,10 @@ const EN = {
   systemName: 'System name',
   fromName: 'Sender name',
   fromEmail: 'Sender email',
+
+  editorMode: 'Editor',
+  visual: 'Visual Editor',
+  code: 'Code Editor',
 };
 
 export default EN;

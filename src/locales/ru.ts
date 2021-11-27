@@ -41,6 +41,10 @@ const RU: typeof EN = {
   systemName: 'Служебное имя',
   fromName: 'Имя отправителя',
   fromEmail: 'E-Mail отправителя',
+
+  editorMode: 'Редактор',
+  visual: 'Визуальный редактор',
+  code: 'Редактор кода',
 };
 
 export default RU;

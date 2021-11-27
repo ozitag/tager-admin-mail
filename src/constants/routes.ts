@@ -1,7 +1,7 @@
 import { CustomRouteConfig } from '@tager/admin-layout';
 
 import EmailTemplateList from '../views/EmailTemplateList';
-import EmailTemplateForm from '../views/EmailTemplateForm.vue';
+import EmailTemplateForm from '../views/EmailTemplateForm/EmailTemplateForm.vue';
 import EmailLogList from '../views/EmailLogList';
 
 import { EMAIL_ROUTE_PATHS } from './paths';

@@ -26,6 +26,7 @@ export type TemplateUpdatePayload = {
   bcc: Array<string>;
   fromName: Nullable<string>;
   fromEmail: Nullable<string>;
+  editorMode: Nullable<string>;
 };
 
 export function updateTemplate(
