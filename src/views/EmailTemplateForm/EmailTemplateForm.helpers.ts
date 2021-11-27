@@ -26,6 +26,10 @@ export function convertEmailTemplateToFormValues(
       (option) => option.value === template?.serviceTemplate
     ) ?? null;
 
+  const foundEditorMode = editorModeOptions.find(
+    ({ value }) => value === template?.editorMode
+  );
+
   return {
     alias: template?.alias ?? '',
     subject: template?.subject ?? '',
@@ -37,6 +41,6 @@ export function convertEmailTemplateToFormValues(
     serviceTemplate: foundServiceTemplate,
     fromName: template?.fromName ?? null,
     fromEmail: template?.fromEmail ?? null,
-    editorMode: editorModeOptions[0],
+    editorMode: foundEditorMode ?? editorModeOptions[0],
   };
 }

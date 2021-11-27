@@ -13,6 +13,7 @@ export type EmailTemplate = {
   serviceTemplate: Nullable<string>;
   fromName: Nullable<string>;
   fromEmail: Nullable<string>;
+  editorMode: Nullable<string>;
 };
 
 export type EmailServiceTemplate = { value: string; label: string };
