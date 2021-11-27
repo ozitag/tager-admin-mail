@@ -141,7 +141,7 @@ export default defineComponent({
       },
       {
         label: t('mail:code'),
-        value: 'Code',
+        value: 'CODE',
       },
     ]);
 
