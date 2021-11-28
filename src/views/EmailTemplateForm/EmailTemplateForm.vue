@@ -127,6 +127,11 @@ import {
   FormValues,
 } from './EmailTemplateForm.helpers';
 
+enum EditorMode {
+  Visual = 'VISUAL',
+  Code = 'CODE',
+}
+
 export default defineComponent({
   name: 'EmailTemplateForm',
   setup(props, context: SetupContext) {
@@ -137,11 +142,11 @@ export default defineComponent({
     const editorModeOptions = computed<OptionType[]>(() => [
       {
         label: t('mail:visual'),
-        value: 'VISUAL',
+        value: EditorMode.Visual,
       },
       {
         label: t('mail:code'),
-        value: 'CODE',
+        value: EditorMode.Code,
       },
     ]);
 
@@ -269,11 +274,11 @@ export default defineComponent({
     );
 
     const isVisualEditorMode = computed(
-      () => values.value.editorMode?.value === 'VISUAL'
+      () => values.value.editorMode?.value === EditorMode.Visual
     );
 
     const isCodeEditorMode = computed(
-      () => values.value.editorMode?.value === 'Code'
+      () => values.value.editorMode?.value === EditorMode.Code
     );
 
     return {
