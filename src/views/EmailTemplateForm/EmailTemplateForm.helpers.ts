@@ -1,6 +1,7 @@
 import { Nullable } from '@tager/admin-services';
-import { EmailTemplate } from '../../typings/model';
 import { OptionType } from '@tager/admin-ui';
+
+import { EmailTemplate } from '../../typings/model';
 
 export type FormValues = {
   subject: string;

@@ -7,12 +7,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
-import { EmailLog } from '../../../typings/model';
+import {defineComponent} from 'vue';
 
-type Props = Readonly<{ log: EmailLog }>;
-
-export default defineComponent<Props>({
+export default defineComponent({
   name: 'EmailAttachmentsCell',
   props: {
     log: {
@@ -26,6 +23,7 @@ export default defineComponent<Props>({
 <style scoped lang="scss">
 a {
   color: var(--primary);
+
   &:hover {
     text-decoration: underline;
   }

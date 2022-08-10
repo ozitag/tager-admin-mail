@@ -7,12 +7,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from '@vue/composition-api';
-import { EmailLog } from '../../../typings/model';
+import {computed, defineComponent, ref} from 'vue';
 
-type Props = Readonly<{ log: EmailLog }>;
-
-export default defineComponent<Props>({
+export default defineComponent({
   name: 'EmailErrorCell',
   props: {
     log: {
@@ -29,9 +26,9 @@ export default defineComponent<Props>({
 
     const errorText = computed(() => {
       if (
-        typeof props.log.error === 'string' &&
-        props.log.error.length > 80 &&
-        !isOpen.value
+          typeof props.log.error === 'string' &&
+          props.log.error.length > 80 &&
+          !isOpen.value
       ) {
         return props.log.error.slice(0, 80) + '...';
       }
@@ -39,7 +36,7 @@ export default defineComponent<Props>({
       return props.log.error;
     });
 
-    return { isOpen, toggleError, errorText };
+    return {isOpen, toggleError, errorText};
   },
 });
 </script>

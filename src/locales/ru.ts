@@ -1,6 +1,6 @@
-import EN from './en';
+import { EN } from './en';
 
-const RU: typeof EN = {
+export const RU: typeof EN = {
   template: 'Шаблон',
   templateForm: 'Форма шаблона',
   templates: 'Шаблоны',
@@ -45,6 +45,7 @@ const RU: typeof EN = {
   editorMode: 'Редактор',
   visual: 'Визуальный редактор',
   code: 'Редактор кода',
-};
 
-export default RU;
+  create: 'Создать',
+  save: 'Сохранить',
+};

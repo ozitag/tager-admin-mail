@@ -1,108 +1,130 @@
 <template>
-  <page
-    :title="pageTitle"
-    :is-content-loading="isInitialLoading"
-    :footer="{
-      backHref: templateListRoutePath,
-      onSubmit: submitForm,
-      isSubmitting: isSubmitting,
-    }"
-  >
+  <Page :title="pageTitle" :is-content-loading="isInitialLoading">
     <form novalidate @submit.prevent>
-      <field-value
+      <FieldValue
         v-if="!isCreation"
-        :label="t('mail:systemName')"
+        :label="$i18n.t('mail:systemName')"
         type="text"
         :text="values.alias"
       />
 
-      <form-field
-        v-model="values.subject"
+      <FormField
+        v-model:value="values.subject"
         name="subject"
         :error="errors.subject"
-        :label="t('mail:subject')"
+        :label="$i18n.t('mail:subject')"
       />
 
-      <form-field
-        v-model="values.recipients"
+      <FormField
+        v-model:value="values.recipients"
         name="recipients"
         :error="errors.recipients"
-        :label="t('mail:recipients')"
+        :label="$i18n.t('mail:recipients')"
       />
 
-      <form-field
-        v-model="values.cc"
+      <FormField
+        v-model:value="values.cc"
         name="cc"
         :error="errors.cc"
-        :label="t('mail:cc')"
+        :label="$i18n.t('mail:cc')"
       />
 
-      <form-field
-        v-model="values.bcc"
+      <FormField
+        v-model:value="values.bcc"
         name="bcc"
         :error="errors.bcc"
-        :label="t('mail:bcc')"
+        :label="$i18n.t('mail:bcc')"
       />
 
-      <form-field
+      <FormField
         v-model="values.fromName"
         name="fromName"
         :error="errors.fromName"
-        :label="t('mail:fromName')"
+        :label="$i18n.t('mail:fromName')"
       />
 
-      <form-field
-        v-model="values.fromEmail"
+      <FormField
+        v-model:value="values.fromEmail"
         name="fromEmail"
         :error="errors.fromEmail"
-        :label="t('mail:fromEmail')"
+        :label="$i18n.t('mail:fromEmail')"
       />
 
-      <form-field-checkbox
-        v-model="values.useServiceTemplate"
+      <FormFieldCheckbox
+        v-model:checked="values.useServiceTemplate"
         name="useServiceTemplate"
         :error="errors.useServiceTemplate"
-        :label="t('mail:useServiceTemplate')"
+        :label="$i18n.t('mail:useServiceTemplate')"
       />
 
-      <form-field-select
+      <FormFieldSelect
         v-if="values.useServiceTemplate"
-        v-model="values.serviceTemplate"
+        v-model:value="values.serviceTemplate"
         name="serviceTemplate"
         :error="errors.serviceTemplate"
-        :label="t('mail:serviceTemplate')"
-        :no-options-message="t('mail:noTemplates')"
+        :label="$i18n.t('mail:serviceTemplate')"
+        :no-options-message="$i18n.t('mail:noTemplates')"
         :options="serviceTemplateOptions"
       />
 
       <template v-else>
-        <form-field-select
-          v-model="values.editorMode"
+        <FormFieldSelect
+          v-model:value="values.editorMode"
           name="editorMode"
           :error="errors.editorMode"
-          :label="t('mail:editorMode')"
-          :no-options-message="t('mail:noTemplates')"
+          :label="$i18n.t('mail:editorMode')"
+          :no-options-message="$i18n.t('mail:noTemplates')"
           :options="editorModeOptions"
         />
 
-        <form-field-message-template
+        <FormFieldMessageTemplate
           v-if="isVisualEditorMode"
-          v-model="values.body"
-          :label="t('mail:body')"
+          v-model:value="values.body"
+          :label="$i18n.t('mail:body')"
           :variable-list="emailTemplate ? emailTemplate.variables : []"
           :error="errors.body"
           type="richText"
           name="body"
         />
-
-        <form-field-code v-if="isCodeEditorMode" v-model="values.body" />
+        <Code v-if="isCodeEditorMode" v-model:value="values.body" />
       </template>
     </form>
-  </page>
+    <template #footer>
+      <FormFooter
+        :back-href="templateListRoutePath"
+        :is-submitting="isSubmitting"
+        :is-creation="true"
+        :submit-label="
+          isCreation ? $i18n.t('mail:create') : $i18n.t('mail:save')
+        "
+        @submit="submitForm"
+      />
+    </template>
+  </Page>
 </template>
 
 <script lang="ts">
-import { convertRequestErrorToMap, Nullable } from '@tager/admin-services';
+import { computed, defineComponent, onMounted, ref, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+
+import {
+  convertRequestErrorToMap,
+  Nullable,
+  useI18n,
+  useToast,
+  navigateBack,
+} from '@tager/admin-services';
+import {
+  Code,
+  FieldValue,
+  FormField,
+  FormFieldCheckbox,
+  FormFieldMessageTemplate,
+  FormFieldSelect,
+  FormFooter,
+  OptionType,
+} from '@tager/admin-ui';
+import { Page } from '@tager/admin-layout';
 
 import {
   getServiceTemplateList,
@@ -112,16 +134,8 @@ import {
 } from '../../services/requests';
 import { EmailServiceTemplate, EmailTemplate } from '../../typings/model';
 import { getEmailTemplateListUrl } from '../../utils/paths';
-import {
-  computed,
-  defineComponent,
-  onMounted,
-  ref,
-  SetupContext,
-  watch,
-} from '@vue/composition-api';
 import useResource from '../../hooks/useResource';
-import { OptionType, useTranslation } from '@tager/admin-ui';
+
 import {
   convertEmailTemplateToFormValues,
   FormValues,
@@ -134,8 +148,22 @@ enum EditorMode {
 
 export default defineComponent({
   name: 'EmailTemplateForm',
-  setup(props, context: SetupContext) {
-    const { t } = useTranslation(context);
+  components: {
+    Code,
+    FormFooter,
+    FormFieldMessageTemplate,
+    FormFieldSelect,
+    FormFieldCheckbox,
+    FormField,
+    FieldValue,
+    Page,
+  },
+  setup() {
+    const { t } = useI18n();
+
+    const toast = useToast();
+    const router = useRouter();
+    const route = useRoute();
 
     /** Editor mode **/
 
@@ -162,8 +190,8 @@ export default defineComponent({
 
     /** Email template fetching */
 
-    const templateId = computed<string>(
-      () => context.root.$route.params.templateId
+    const templateId = computed(
+      () => route.params.templateId as string | undefined
     );
 
     const isCreation = computed(() => templateId.value === 'create');
@@ -172,7 +200,13 @@ export default defineComponent({
       fetchEmailTemplate,
       { data: emailTemplate, loading: isTemplateLoading },
     ] = useResource<Nullable<EmailTemplate>>({
-      fetchResource: () => getTemplate(templateId.value),
+      fetchResource: () => {
+        if (templateId.value && !isCreation.value) {
+          return getTemplate(templateId.value);
+        }
+
+        return Promise.resolve({ data: null });
+      },
       initialValue: null,
     });
 
@@ -236,12 +270,12 @@ export default defineComponent({
         editorMode: values.value.editorMode?.value ?? null,
       };
 
-      updateTemplate(templateId.value, body)
+      updateTemplate(templateId.value || '', body)
         .then(() => {
           errors.value = {};
-          context.root.$router.push(getEmailTemplateListUrl());
+          navigateBack(router, getEmailTemplateListUrl());
 
-          context.root.$toast({
+          toast.show({
             variant: 'success',
             title: t('mail:success'),
             body: t('mail:templateHasBeenSuccessfullyUpdated'),
@@ -250,7 +284,7 @@ export default defineComponent({
         .catch((error) => {
           console.error(error);
           errors.value = convertRequestErrorToMap(error);
-          context.root.$toast({
+          toast.show({
             variant: 'danger',
             title: t('mail:error'),
             body: t('mail:templateUpdateHasBeenFailed'),

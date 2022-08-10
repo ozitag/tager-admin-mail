@@ -1,4 +1,4 @@
-const EN = {
+export const EN = {
   template: 'Template',
   templateForm: 'Template form',
   templates: 'Templates',
@@ -43,6 +43,7 @@ const EN = {
   editorMode: 'Editor',
   visual: 'Visual Editor',
   code: 'Code Editor',
-};
 
-export default EN;
+  create: 'Create',
+  save: 'Save',
+};

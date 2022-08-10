@@ -1,24 +1,24 @@
 <template>
   <div>
     <p v-if="isOpen" class="email-body" v-html="log.body" />
-    <base-button
+    <BaseButton
       variant="outline-secondary"
       class="toggle-button"
       @click="toggleBody"
     >
-      {{ isOpen ? $t('mail:hideBody') : $t('mail:viewBody') }}
-    </base-button>
+      {{ isOpen ? $i18n.t('mail:hideBody') : $i18n.t('mail:viewBody') }}
+    </BaseButton>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@vue/composition-api';
-import { EmailLog } from '../../../typings/model';
+import { defineComponent, ref } from 'vue';
 
-type Props = Readonly<{ log: EmailLog }>;
+import { BaseButton } from '@tager/admin-ui';
 
-export default defineComponent<Props>({
+export default defineComponent({
   name: 'EmailBodyCell',
+  components: { BaseButton },
   props: {
     log: {
       type: Object,

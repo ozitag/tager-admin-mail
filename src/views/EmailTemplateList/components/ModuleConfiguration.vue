@@ -1,13 +1,13 @@
 <template>
   <div v-if="config" class="config-block">
-    <h4>{{ $t('mail:configuration') }}:</h4>
+    <h4>{{ $i18n.t('mail:configuration') }}:</h4>
     <ul class="option-list">
       <li>
-        <span>{{ $t('mail:enabled') }}: </span>
+        <span>{{ $i18n.t('mail:enabled') }}: </span>
         <span>{{ config.enabled }}</span>
       </li>
       <li>
-        <span>{{ $t('mail:allowedEmails') }}: </span>
+        <span>{{ $i18n.t('mail:allowedEmails') }}: </span>
         <span>
           {{
             Array.isArray(config.allowedEmails)
@@ -17,11 +17,11 @@
         </span>
       </li>
       <li>
-        <span>{{ $t('mail:subjectTemplate') }}: </span>
+        <span>{{ $i18n.t('mail:subjectTemplate') }}: </span>
         <span>{{ config.subjectTemplate }}</span>
       </li>
       <li>
-        <span>{{ $t('mail:service') }}: </span>
+        <span>{{ $i18n.t('mail:service') }}: </span>
         <span>{{ config.service }}</span>
       </li>
     </ul>
@@ -29,10 +29,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from '@vue/composition-api';
+import { defineComponent, onMounted } from 'vue';
+
+import { Nullable } from '@tager/admin-services';
+
 import { EmailModuleConfig } from '../../../typings/model';
 import useResource from '../../../hooks/useResource';
-import { Nullable } from '@tager/admin-services';
 import { getEmailModuleConfiguration } from '../../../services/requests';
 
 export default defineComponent({

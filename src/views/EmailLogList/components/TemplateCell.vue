@@ -2,18 +2,15 @@
   <div>
     <p>{{ log.template }}</p>
     <p v-if="log.serviceTemplate" class="service-template">
-      {{ $t('mail:serviceTemplate') }}: "{{ log.serviceTemplate }}"
+      {{ $i18n.t('mail:serviceTemplate') }}: "{{ log.serviceTemplate }}"
     </p>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
-import { EmailLog } from '../../../typings/model';
+import {defineComponent} from 'vue';
 
-type Props = Readonly<{ log: EmailLog }>;
-
-export default defineComponent<Props>({
+export default defineComponent({
   name: 'EmailTemplateCell',
   props: {
     log: {
