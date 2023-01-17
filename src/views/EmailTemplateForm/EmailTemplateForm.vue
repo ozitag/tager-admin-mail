@@ -5,7 +5,7 @@
         v-if="!isCreation"
         :label="$i18n.t('mail:systemName')"
         type="text"
-        :text="values.alias"
+        :value="values.alias"
       />
 
       <FormField
@@ -37,7 +37,7 @@
       />
 
       <FormField
-        v-model="values.fromName"
+        v-mode:value="values.fromName"
         name="fromName"
         :error="errors.fromName"
         :label="$i18n.t('mail:fromName')"

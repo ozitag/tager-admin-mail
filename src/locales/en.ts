@@ -1,4 +1,6 @@
 export const EN = {
+  Yes: 'Yes',
+  No: 'No',
   template: 'Template',
   templateForm: 'Template form',
   templates: 'Templates',

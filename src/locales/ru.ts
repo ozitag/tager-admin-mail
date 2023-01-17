@@ -1,6 +1,8 @@
 import { EN } from './en';
 
 export const RU: typeof EN = {
+  Yes: 'Да',
+  No: 'Нет',
   template: 'Шаблон',
   templateForm: 'Форма шаблона',
   templates: 'Шаблоны',
@@ -27,9 +29,9 @@ export const RU: typeof EN = {
   actions: 'Действия',
   configuration: 'Конфигурация',
   enabled: 'Включено',
-  allowedEmails: 'Разрешенные электронные письма',
-  subjectTemplate: 'Шаблон темы',
-  service: 'Услуга',
+  allowedEmails: 'Разрешенные e-mail',
+  subjectTemplate: 'Шаблон темы письма',
+  service: 'Провайдер',
   EMailLogs: 'E-Mail логи',
   recipient: 'Получатель',
   status: 'Статус',
