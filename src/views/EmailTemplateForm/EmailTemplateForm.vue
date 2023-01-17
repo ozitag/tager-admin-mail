@@ -37,7 +37,7 @@
       />
 
       <FormField
-        v-mode:value="values.fromName"
+        v-model:value="values.fromName"
         name="fromName"
         :error="errors.fromName"
         :label="$i18n.t('mail:fromName')"
