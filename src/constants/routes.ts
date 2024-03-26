@@ -54,3 +54,10 @@ export const EMAIL_TEST_ROUTE: RouteRecordRaw = {
     ],
   },
 };
+
+export const TAGER_MAIL_ROUTES: Array<RouteRecordRaw> = [
+  EMAIL_TEMPLATE_LIST_ROUTE,
+  EMAIL_TEMPLATE_FORM_ROUTE,
+  EMAIL_LOG_LIST_ROUTE,
+  EMAIL_TEST_ROUTE,
+];
