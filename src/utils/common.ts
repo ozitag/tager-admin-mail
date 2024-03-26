@@ -4,3 +4,4 @@ export function capitalizeWord(word: string): string {
 
   return letters.join('');
 }
+

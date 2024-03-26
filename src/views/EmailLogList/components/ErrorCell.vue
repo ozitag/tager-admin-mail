@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, ref} from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'EmailErrorCell',
@@ -26,9 +26,9 @@ export default defineComponent({
 
     const errorText = computed(() => {
       if (
-          typeof props.log.error === 'string' &&
-          props.log.error.length > 80 &&
-          !isOpen.value
+        typeof props.log.error === 'string' &&
+        props.log.error.length > 80 &&
+        !isOpen.value
       ) {
         return props.log.error.slice(0, 80) + '...';
       }
@@ -36,7 +36,7 @@ export default defineComponent({
       return props.log.error;
     });
 
-    return {isOpen, toggleError, errorText};
+    return { isOpen, toggleError, errorText };
   },
 });
 </script>

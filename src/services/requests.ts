@@ -58,3 +58,16 @@ export function getServiceTemplateList(): Promise<
 > {
   return request.get({ path: '/admin/mail/service-templates' });
 }
+
+export type SendTestEmailPayload = {
+  recipient: string;
+  template: string | null;
+  params: Array<{
+    param: string;
+    value: string | null;
+  }>;
+};
+
+export async function sendTestEmail(payload: SendTestEmailPayload) {
+  return request.post({ path: '/admin/mail/send-test', body: payload });
+}

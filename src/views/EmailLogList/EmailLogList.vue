@@ -1,5 +1,10 @@
 <template>
-  <Page :title="$i18n.t('mail:EMailLogs')">
+  <Page :title="$i18n.t('mail:EMailLogs')" :header-buttons="[
+      {
+        text: $i18n.t('mail:testMail'),
+        href: getTestMailUrl(),
+      },
+    ]">
     <DataTable
       :column-defs="columnDefs"
       :row-data="rowData"
@@ -45,9 +50,11 @@ import BodyCell from './components/BodyCell.vue';
 import ErrorCell from './components/ErrorCell.vue';
 import TemplateCell from './components/TemplateCell.vue';
 import AttachmentsCell from './components/AttachmentsCell.vue';
+import { getTestMailUrl } from '@/utils/paths';
 
 export default defineComponent({
   name: 'EmailLogList',
+  methods: { getTestMailUrl },
   components: {
     Page,
     DataTable,

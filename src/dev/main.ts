@@ -12,6 +12,7 @@ import {
   EMAIL_LOG_LIST_ROUTE,
   EMAIL_TEMPLATE_FORM_ROUTE,
   EMAIL_TEMPLATE_LIST_ROUTE,
+  EMAIL_TEST_ROUTE,
 } from '../constants/routes';
 
 import { OZITAG_CONFIG } from './config';
@@ -28,6 +29,7 @@ const router = createRouter(
       EMAIL_LOG_LIST_ROUTE,
       EMAIL_TEMPLATE_FORM_ROUTE,
       EMAIL_TEMPLATE_LIST_ROUTE,
+      EMAIL_TEST_ROUTE,
     ],
   },
   { useTitleSync: false }

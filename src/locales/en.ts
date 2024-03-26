@@ -48,4 +48,10 @@ export const EN = {
 
   create: 'Create',
   save: 'Save',
+
+  testMail: 'Test Mail',
+  send: 'Send',
+  sendAndExit: 'Send and exit',
+  testEmailSuccess: 'Test mail sent successfully',
+  testEmailFailure: 'Test mail sent error',
 };

@@ -50,4 +50,10 @@ export const RU: typeof EN = {
 
   create: 'Создать',
   save: 'Сохранить',
+
+  testMail: 'Тестовый e-mail',
+  send: 'Отправить',
+  sendAndExit: 'Отправить и выйти',
+  testEmailSuccess: 'Тестовый e-mail успешно отправлен',
+  testEmailFailure: 'Ошибка отправки тестового e-mail',
 };

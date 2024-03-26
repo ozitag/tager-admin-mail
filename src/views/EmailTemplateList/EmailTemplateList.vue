@@ -1,5 +1,12 @@
 <template>
-  <Page :title="$i18n.t('mail:EMailTemplates')">
+  <Page
+    :title="$i18n.t('mail:EMailTemplates')"
+    :header-buttons="[
+      {
+        text: $i18n.t('mail:testMail'),
+        href: getTestMailUrl(),
+      },
+    ]">
     <ModuleConfiguration />
 
     <BaseTable
@@ -44,13 +51,14 @@ import { Page } from '@tager/admin-layout';
 
 import { EmailTemplate } from '../../typings/model';
 import { getTemplateList } from '../../services/requests';
-import { getEmailTemplateFormUrl } from '../../utils/paths';
+import { getEmailTemplateFormUrl, getTestMailUrl } from '../../utils/paths';
 import useResource from '../../hooks/useResource';
 
 import ModuleConfiguration from './components/ModuleConfiguration.vue';
 
 export default defineComponent({
   name: 'EmailTemplateList',
+  methods: { getTestMailUrl },
   components: { EditIcon, BaseButton, BaseTable, Page, ModuleConfiguration },
   setup() {
     const { t } = useI18n();
