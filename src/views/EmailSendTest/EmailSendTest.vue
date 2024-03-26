@@ -58,8 +58,8 @@ import {
   useToast,
 } from '@tager/admin-services';
 
-import { getTemplateList, sendTestEmail } from '@/services/requests';
-import { EmailTemplate } from '@/typings/model';
+import { getTemplateList, sendTestEmail } from '../../services/requests';
+import { EmailTemplate } from '../../typings/model';
 
 import { getEmailLogListUrl } from '../../utils/paths';
 

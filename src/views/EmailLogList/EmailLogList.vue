@@ -45,12 +45,12 @@ import { Page } from '@tager/admin-layout';
 import { EmailLog } from '../../typings/model';
 import { getLogList } from '../../services/requests';
 import { capitalizeWord } from '../../utils/common';
+import { getTestMailUrl } from '../../utils/paths';
 
 import BodyCell from './components/BodyCell.vue';
 import ErrorCell from './components/ErrorCell.vue';
 import TemplateCell from './components/TemplateCell.vue';
 import AttachmentsCell from './components/AttachmentsCell.vue';
-import { getTestMailUrl } from '@/utils/paths';
 
 export default defineComponent({
   name: 'EmailLogList',

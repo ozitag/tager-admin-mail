@@ -13,7 +13,7 @@ import { useI18n } from '@tager/admin-services';
 import {
 getTagerMailSidebar,
 
-} from '@/utils/paths';
+} from '../utils/paths';
 
 export default defineComponent({
   name: 'App',

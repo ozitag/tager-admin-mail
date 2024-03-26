@@ -4,7 +4,7 @@ import { ViewListIcon } from '@tager/admin-ui';
 import { MenuItemType } from '@tager/admin-layout';
 import { I18nContext } from '@tager/admin-services';
 
-import { EMAIL_ROUTE_PATHS } from '@/constants/paths';
+import { EMAIL_ROUTE_PATHS } from '../constants/paths';
 
 export function getEmailTemplateListUrl(): string {
   return EMAIL_ROUTE_PATHS.TEMPLATE_LIST;
