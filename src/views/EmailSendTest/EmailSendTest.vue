@@ -60,7 +60,6 @@ import {
 
 import { getTemplateList, sendTestEmail } from '../../services/requests';
 import { type EmailTemplate } from '../../typings/model';
-
 import { getEmailLogListUrl } from '../../utils/paths';
 
 import {

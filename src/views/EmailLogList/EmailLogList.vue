@@ -1,5 +1,6 @@
 <template>
-  <Page :title="$i18n.t('mail:EMailLogs')" :header-buttons="[
+  <Page
+:title="$i18n.t('mail:EMailLogs')" :header-buttons="[
       {
         text: $i18n.t('mail:testMail'),
         href: getTestMailUrl(),
@@ -54,7 +55,6 @@ import AttachmentsCell from './components/AttachmentsCell.vue';
 
 export default defineComponent({
   name: 'EmailLogList',
-  methods: { getTestMailUrl },
   components: {
     Page,
     DataTable,
@@ -127,6 +127,7 @@ export default defineComponent({
       pageCount,
     };
   },
+  methods: { getTestMailUrl },
 });
 </script>
 

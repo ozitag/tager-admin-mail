@@ -58,7 +58,6 @@ import ModuleConfiguration from './components/ModuleConfiguration.vue';
 
 export default defineComponent({
   name: 'EmailTemplateList',
-  methods: { getTestMailUrl },
   components: { EditIcon, BaseButton, BaseTable, Page, ModuleConfiguration },
   setup() {
     const { t } = useI18n();
@@ -111,6 +110,7 @@ export default defineComponent({
       getEmailTemplateFormUrl,
     };
   },
+  methods: { getTestMailUrl },
 });
 </script>
 
