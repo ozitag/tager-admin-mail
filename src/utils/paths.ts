@@ -1,8 +1,8 @@
 import { compile } from 'path-to-regexp';
 
 import { ViewListIcon } from '@tager/admin-ui';
-import { MenuItemType } from '@tager/admin-layout';
-import { I18nContext } from '@tager/admin-services';
+import { type MenuItemType } from '@tager/admin-layout';
+import { type I18nContext } from '@tager/admin-services';
 
 import { EMAIL_ROUTE_PATHS } from '../constants/paths';
 

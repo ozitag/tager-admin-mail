@@ -1,10 +1,10 @@
-import { computed, Ref, ref } from 'vue';
+import { computed, type Ref, ref } from 'vue';
 
 import {
   FETCH_STATUSES,
-  FetchStatus,
+  type FetchStatus,
   getMessageFromError,
-  ResponseBody,
+  type ResponseBody,
 } from '@tager/admin-services';
 
 function useResource<T>(params: {

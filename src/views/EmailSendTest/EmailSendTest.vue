@@ -47,9 +47,9 @@ import {
   FormField,
   FormFooter,
   FormFieldSelect,
-  OptionType,
+  type OptionType,
   BaseInput,
-  TagerFormSubmitEvent,
+  type TagerFormSubmitEvent,
 } from '@tager/admin-ui';
 import {
   convertRequestErrorToMap,
@@ -59,13 +59,13 @@ import {
 } from '@tager/admin-services';
 
 import { getTemplateList, sendTestEmail } from '../../services/requests';
-import { EmailTemplate } from '../../typings/model';
+import { type EmailTemplate } from '../../typings/model';
 
 import { getEmailLogListUrl } from '../../utils/paths';
 
 import {
   convertFormValuesToSendPayload,
-  FormValues,
+  type FormValues,
   INITIAL_VALUES,
 } from './EmailSendTest.helpers';
 

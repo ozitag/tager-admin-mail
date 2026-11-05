@@ -1,7 +1,7 @@
-import { OptionType } from '@tager/admin-ui';
-import { Nullable } from '@tager/admin-services';
+import { type OptionType } from '@tager/admin-ui';
+import { type Nullable } from '@tager/admin-services';
 
-import { SendTestEmailPayload } from '../../services/requests';
+import { type SendTestEmailPayload } from '../../services/requests';
 
 export type FormValues = {
   recipient: string;

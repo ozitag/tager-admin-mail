@@ -43,13 +43,13 @@ import { defineComponent, onMounted } from 'vue';
 import {
   BaseButton,
   BaseTable,
-  ColumnDefinition,
+  type ColumnDefinition,
   EditIcon,
 } from '@tager/admin-ui';
 import { useI18n } from '@tager/admin-services';
 import { Page } from '@tager/admin-layout';
 
-import { EmailTemplate } from '../../typings/model';
+import { type EmailTemplate } from '../../typings/model';
 import { getTemplateList } from '../../services/requests';
 import { getEmailTemplateFormUrl, getTestMailUrl } from '../../utils/paths';
 import useResource from '../../hooks/useResource';

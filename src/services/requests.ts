@@ -1,10 +1,10 @@
-import { Nullable, request, ResponseBody } from '@tager/admin-services';
+import { type Nullable, request, type ResponseBody } from '@tager/admin-services';
 
 import {
-  EmailLog,
-  EmailModuleConfig,
-  EmailServiceTemplate,
-  EmailTemplate,
+  type EmailLog,
+  type EmailModuleConfig,
+  type EmailServiceTemplate,
+  type EmailTemplate,
 } from '../typings/model';
 
 export function getTemplateList(): Promise<ResponseBody<Array<EmailTemplate>>> {

@@ -109,7 +109,7 @@ import { useRoute, useRouter } from 'vue-router';
 
 import {
   convertRequestErrorToMap,
-  Nullable,
+  type Nullable,
   useI18n,
   useToast,
   navigateBack,
@@ -122,23 +122,23 @@ import {
   FormFieldMessageTemplate,
   FormFieldSelect,
   FormFooter,
-  OptionType,
+  type OptionType,
 } from '@tager/admin-ui';
 import { Page } from '@tager/admin-layout';
 
 import {
   getServiceTemplateList,
   getTemplate,
-  TemplateUpdatePayload,
+  type TemplateUpdatePayload,
   updateTemplate,
 } from '../../services/requests';
-import { EmailServiceTemplate, EmailTemplate } from '../../typings/model';
+import { type EmailServiceTemplate, type EmailTemplate } from '../../typings/model';
 import { getEmailTemplateListUrl } from '../../utils/paths';
 import useResource from '../../hooks/useResource';
 
 import {
   convertEmailTemplateToFormValues,
-  FormValues,
+  type FormValues,
 } from './EmailTemplateForm.helpers';
 
 enum EditorMode {

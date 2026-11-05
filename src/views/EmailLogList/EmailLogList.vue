@@ -38,11 +38,11 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import { ColumnDefinition, useDataTable, DataTable } from '@tager/admin-ui';
+import { type ColumnDefinition, useDataTable, DataTable } from '@tager/admin-ui';
 import { useI18n } from '@tager/admin-services';
 import { Page } from '@tager/admin-layout';
 
-import { EmailLog } from '../../typings/model';
+import { type EmailLog } from '../../typings/model';
 import { getLogList } from '../../services/requests';
 import { capitalizeWord } from '../../utils/common';
 import { getTestMailUrl } from '../../utils/paths';

@@ -49,9 +49,9 @@
 import { defineComponent, onMounted } from 'vue';
 
 import { ToggleSection } from '@tager/admin-ui';
-import { Nullable } from '@tager/admin-services';
+import { type Nullable } from '@tager/admin-services';
 
-import { EmailModuleConfig } from '../../../typings/model';
+import { type EmailModuleConfig } from '../../../typings/model';
 import useResource from '../../../hooks/useResource';
 import { getEmailModuleConfiguration } from '../../../services/requests';
 
