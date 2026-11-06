@@ -3,12 +3,14 @@
     <form novalidate @submit.prevent>
       <FormField
         v-model:value="values.recipient"
+        name="recipient"
         label="E-Mail"
         type="text"
         :error="errors.recipient"
       />
       <FormFieldSelect
         v-model:value="values.template"
+        name="template"
         :label="$i18n.t('mail:template')"
         :options="templateOptions"
         :error="errors.template"
